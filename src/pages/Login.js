@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { loginUsuario } from "../api";// Asegúrate de importar la función correcta
+import { loginUsuario } from "../api";
 
 function Login() {
     const [correo, setCorreo] = useState("");
     const [contraseña, setContraseña] = useState("");
 
     async function handleSubmit(event) {
-        event.preventDefault(); // Evita que la página se recargue
+        event.preventDefault(); 
         
         if (!correo || !contraseña) {
             alert("Por favor, completa todos los campos.");
@@ -14,7 +14,7 @@ function Login() {
         }
 
         try {
-            await loginUsuario(correo, contraseña); // Llamada a la API
+            await loginUsuario(correo, contraseña); 
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
             alert("Error en el inicio de sesión. Verifica tus credenciales.");
