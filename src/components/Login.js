@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { loginUsuario } from "../api";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/userContext";
 import axios from "axios";
@@ -14,7 +13,7 @@ function Login() {
 
     const loginUsuario = async (correo, contraseña) => {
         try {
-            const response = await axios.post('http://127.0.0.1:5000/api/usuarios/login', {
+            const response = await axios.post('/api/usuarios/login', {
                 email: correo,
                 password: contraseña
             });
@@ -35,8 +34,8 @@ function Login() {
         try {
             const response = await loginUsuario(correo, contraseña);
 
-            if (response && response.userId) {
-                setUserId(response.userId);
+            if (response && response.token) {
+                setUserId(response.token);  
                 navigate("/dashboard"); 
             } else {
                 alert("Usuario o contraseña incorrectos.");
@@ -44,7 +43,7 @@ function Login() {
         } catch (error) {
             if (error.response) {
                 if (error.response.status === 401) {
-                    alert("Contraseña incorrecta.");
+                    alert("Contraseña o correo incorrecto");
                 } else if (error.response.status === 404) {
                     alert("Usuario no encontrado.");
                 } else {
